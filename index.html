@@ -136,27 +136,143 @@
         }
 
         .theme-showcase {
-            display: flex;
-            justify-content: center;
-            gap: 12px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 16px;
             margin: 32px 0;
-            flex-wrap: wrap;
         }
 
-        .theme-badge {
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-size: 14px;
-            font-weight: 600;
+        .theme-card {
+            position: relative;
+            height: 140px;
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
 
-        .theme-neon { background: linear-gradient(135deg, #ff006e 0%, #ff4d6d 100%); color: white; }
-        .theme-minimal { background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%); color: white; }
-        .theme-cyberpunk { background: linear-gradient(135deg, #00ff87 0%, #60efff 100%); color: #1a1a1a; }
-        .theme-sakura { background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%); color: #1a1a1a; }
-        .theme-pixel { background: linear-gradient(135deg, #3d5a80 0%, #5a8a9e 100%); color: white; }
-        .theme-retro { background: linear-gradient(135deg, #d4a574 0%, #e8b89b 100%); color: white; }
-        .theme-liquid { background: linear-gradient(135deg, rgba(100, 255, 218, 0.3) 0%, rgba(0, 200, 255, 0.3) 100%); color: #1a1a1a; border: 2px solid rgba(100, 255, 218, 0.5); }
+        .theme-card:hover {
+            transform: translateY(-8px) scale(1.05);
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.2);
+        }
+
+        .theme-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg,
+                rgba(255, 255, 255, 0.1) 0%,
+                rgba(255, 255, 255, 0.05) 50%,
+                rgba(0, 0, 0, 0.1) 100%);
+            pointer-events: none;
+        }
+
+        .theme-card-inner {
+            position: relative;
+            z-index: 1;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 16px;
+        }
+
+        .theme-icon {
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
+
+        .theme-name {
+            font-size: 16px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .theme-neon {
+            background: linear-gradient(135deg,
+                #ff006e 0%,
+                #ff4d6d 50%,
+                #ff006e 100%);
+            background-size: 200% 200%;
+            animation: neon-shift 3s ease infinite;
+        }
+
+        .theme-minimal {
+            background: linear-gradient(135deg,
+                #1a1a1a 0%,
+                #2c3e50 50%,
+                #34495e 100%);
+            color: white;
+        }
+
+        .theme-cyberpunk {
+            background: linear-gradient(135deg,
+                #00ff87 0%,
+                #60efff 100%);
+            color: #1a1a1a;
+        }
+
+        .theme-sakura {
+            background: linear-gradient(135deg,
+                #ff9a9e 0%,
+                #fecfef 100%);
+            color: #1a1a1a;
+        }
+
+        .theme-pixel {
+            background: linear-gradient(135deg,
+                #3d5a80 0%,
+                #5a8a9e 100%);
+            color: white;
+            image: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 10px,
+                rgba(255, 255, 255, 0.1) 10px,
+                rgba(255, 255, 255, 0.1) 20px
+            );
+        }
+
+        .theme-retro {
+            background: linear-gradient(135deg,
+                #d4a574 0%,
+                #e8b89b 100%);
+            color: white;
+            position: relative;
+        }
+
+        .theme-retro::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23noise)' opacity='0.08'/%3E%3C/svg%3E");
+            pointer-events: none;
+        }
+
+        .theme-liquid {
+            background: linear-gradient(135deg,
+                rgba(100, 255, 218, 0.4) 0%,
+                rgba(0, 200, 255, 0.4) 100%);
+            color: #1a1a1a;
+            border: 2px solid rgba(100, 255, 218, 0.6);
+            box-shadow:
+                0 4px 12px rgba(100, 255, 218, 0.2),
+                inset 0 0 20px rgba(100, 255, 218, 0.1);
+        }
+
+        @keyframes neon-shift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
 
         .divider {
             height: 2px;
@@ -217,7 +333,11 @@
             h1 { font-size: 48px; }
             .features-grid { grid-template-columns: 1fr; }
             .links { flex-direction: column; }
-            .theme-showcase { flex-direction: column; }
+            .theme-showcase { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 400px) {
+            .theme-showcase { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -278,15 +398,50 @@
 
         <div class="divider"></div>
 
-        <h3 style="font-size: 24px; margin-bottom: 20px;">主题风格展示</h3>
+        <h3 style="font-size: 24px; margin-bottom: 20px; text-align: center;">主题风格展示</h3>
         <div class="theme-showcase">
-            <div class="theme-badge theme-neon">霓虹</div>
-            <div class="theme-badge theme-minimal">极简</div>
-            <div class="theme-badge theme-cyberpunk">赛博朋克</div>
-            <div class="theme-badge theme-sakura">樱花</div>
-            <div class="theme-badge theme-pixel">像素</div>
-            <div class="theme-badge theme-retro">机械</div>
-            <div class="theme-badge theme-liquid">液态玻璃</div>
+            <div class="theme-card theme-neon">
+                <div class="theme-card-inner">
+                    <div class="theme-icon">💫</div>
+                    <div class="theme-name">霓虹</div>
+                </div>
+            </div>
+            <div class="theme-card theme-minimal">
+                <div class="theme-card-inner">
+                    <div class="theme-icon">◻️</div>
+                    <div class="theme-name">极简</div>
+                </div>
+            </div>
+            <div class="theme-card theme-cyberpunk">
+                <div class="theme-card-inner">
+                    <div class="theme-icon">🤖</div>
+                    <div class="theme-name">赛博朋克</div>
+                </div>
+            </div>
+            <div class="theme-card theme-sakura">
+                <div class="theme-card-inner">
+                    <div class="theme-icon">🌸</div>
+                    <div class="theme-name">樱花</div>
+                </div>
+            </div>
+            <div class="theme-card theme-pixel">
+                <div class="theme-card-inner">
+                    <div class="theme-icon">👾</div>
+                    <div class="theme-name">像素</div>
+                </div>
+            </div>
+            <div class="theme-card theme-retro">
+                <div class="theme-card-inner">
+                    <div class="theme-icon">📼</div>
+                    <div class="theme-name">机械</div>
+                </div>
+            </div>
+            <div class="theme-card theme-liquid">
+                <div class="theme-card-inner">
+                    <div class="theme-icon">💧</div>
+                    <div class="theme-name">液态玻璃</div>
+                </div>
+            </div>
         </div>
 
         <div class="privacy-note">
@@ -298,7 +453,6 @@
         <div class="links">
             <a href="privacy.html" class="link-item">隐私政策</a>
             <a href="support.html" class="link-item">技术支持</a>
-            <a href="https://github.com/Jorc/m-edc" class="link-item">GitHub 项目</a>
         </div>
 
         <div class="footer">
