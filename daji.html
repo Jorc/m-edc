@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>给大吉的 m edc 体验邀请</title>
+    <style>
+        :root {
+            color-scheme: dark;
+            --bg: #070818;
+            --panel: rgba(255, 255, 255, 0.075);
+            --panel-strong: rgba(255, 255, 255, 0.12);
+            --line: rgba(255, 255, 255, 0.16);
+            --text: #f7f8ff;
+            --muted: rgba(247, 248, 255, 0.68);
+            --soft: rgba(247, 248, 255, 0.48);
+            --cyan: #10d4e8;
+            --lime: #afe66f;
+            --rose: #ff7e9d;
+            --ink: #0d1020;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            background: var(--bg);
+        }
+
+        body {
+            min-height: 100vh;
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", sans-serif;
+            color: var(--text);
+            background:
+                radial-gradient(circle at 18% 12%, rgba(16, 212, 232, 0.16), transparent 30%),
+                radial-gradient(circle at 82% 26%, rgba(255, 126, 157, 0.14), transparent 28%),
+                linear-gradient(145deg, #060716 0%, #111326 45%, #080a18 100%);
+            letter-spacing: 0;
+        }
+
+        a {
+            color: inherit;
+        }
+
+        .page {
+            width: min(1120px, calc(100% - 40px));
+            margin: 0 auto;
+            padding: 32px 0 56px;
+        }
+
+        .nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 18px;
+            padding: 10px 0 34px;
+            color: var(--soft);
+            font-size: 14px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text);
+            font-weight: 700;
+        }
+
+        .mark {
+            width: 34px;
+            height: 34px;
+            display: grid;
+            place-items: center;
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.08);
+            color: var(--cyan);
+        }
+
+        .hero {
+            min-height: calc(100vh - 116px);
+            display: grid;
+            grid-template-columns: minmax(0, 1.08fr) minmax(280px, 0.72fr);
+            gap: 48px;
+            align-items: center;
+            padding-bottom: 44px;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 22px;
+            color: var(--lime);
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .eyebrow::before {
+            content: "";
+            width: 38px;
+            height: 1px;
+            background: currentColor;
+        }
+
+        h1 {
+            max-width: 760px;
+            font-size: clamp(46px, 8vw, 92px);
+            line-height: 0.95;
+            font-weight: 780;
+        }
+
+        .lead {
+            max-width: 650px;
+            margin-top: 26px;
+            color: var(--muted);
+            font-size: clamp(18px, 2.2vw, 23px);
+            line-height: 1.72;
+        }
+
+        .actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            margin-top: 34px;
+        }
+
+        .button {
+            min-height: 50px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 0 20px;
+            border-radius: 8px;
+            border: 1px solid transparent;
+            font-weight: 750;
+            text-decoration: none;
+            transition: transform 160ms ease, background 160ms ease, border-color 160ms ease;
+        }
+
+        .button:hover {
+            transform: translateY(-1px);
+        }
+
+        .button.primary {
+            background: var(--text);
+            color: var(--ink);
+        }
+
+        .button.secondary {
+            border-color: var(--line);
+            background: rgba(255, 255, 255, 0.06);
+            color: var(--text);
+        }
+
+        .phone {
+            position: relative;
+            width: min(360px, 100%);
+            margin: 0 auto;
+            padding: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            border-radius: 34px;
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0.04));
+            box-shadow: 0 34px 110px rgba(0, 0, 0, 0.4);
+        }
+
+        .phone img {
+            display: block;
+            width: 100%;
+            aspect-ratio: 1179 / 2556;
+            object-fit: cover;
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+        }
+
+        .signature {
+            position: absolute;
+            left: -22px;
+            bottom: 54px;
+            width: 184px;
+            padding: 14px 16px;
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            background: rgba(8, 10, 24, 0.84);
+            backdrop-filter: blur(18px);
+        }
+
+        .signature strong {
+            display: block;
+            margin-bottom: 4px;
+            color: var(--cyan);
+            font-size: 13px;
+        }
+
+        .signature span {
+            color: var(--muted);
+            font-size: 13px;
+            line-height: 1.45;
+        }
+
+        .section {
+            display: grid;
+            grid-template-columns: 0.7fr 1fr;
+            gap: 44px;
+            padding: 58px 0;
+            border-top: 1px solid var(--line);
+        }
+
+        .section h2 {
+            font-size: clamp(28px, 4vw, 44px);
+            line-height: 1.08;
+        }
+
+        .section p {
+            color: var(--muted);
+            font-size: 17px;
+            line-height: 1.86;
+            margin-bottom: 18px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 14px;
+        }
+
+        .tile,
+        .steps,
+        .account {
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            background: var(--panel);
+        }
+
+        .tile {
+            padding: 20px;
+        }
+
+        .tile b {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--text);
+            font-size: 16px;
+        }
+
+        .tile span {
+            color: var(--muted);
+            line-height: 1.7;
+        }
+
+        .steps {
+            list-style: none;
+            counter-reset: step;
+            overflow: hidden;
+        }
+
+        .steps li {
+            counter-increment: step;
+            display: grid;
+            grid-template-columns: 46px 1fr;
+            gap: 16px;
+            padding: 20px;
+            border-bottom: 1px solid var(--line);
+            color: var(--muted);
+            line-height: 1.7;
+        }
+
+        .steps li:last-child {
+            border-bottom: 0;
+        }
+
+        .steps li::before {
+            content: counter(step);
+            width: 32px;
+            height: 32px;
+            display: grid;
+            place-items: center;
+            border-radius: 8px;
+            background: var(--panel-strong);
+            color: var(--cyan);
+            font-weight: 800;
+        }
+
+        .account {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 1px;
+            overflow: hidden;
+            background: var(--line);
+        }
+
+        .account div {
+            padding: 18px;
+            background: rgba(255, 255, 255, 0.075);
+        }
+
+        .account span {
+            display: block;
+            margin-bottom: 7px;
+            color: var(--soft);
+            font-size: 13px;
+        }
+
+        code {
+            color: var(--text);
+            font-family: "SF Mono", ui-monospace, Menlo, monospace;
+            font-size: 15px;
+            overflow-wrap: anywhere;
+        }
+
+        .note {
+            margin-top: 16px;
+            padding: 18px;
+            border-left: 3px solid var(--rose);
+            background: rgba(255, 126, 157, 0.08);
+            color: var(--muted);
+            line-height: 1.75;
+        }
+
+        .closing {
+            padding: 62px 0 16px;
+            border-top: 1px solid var(--line);
+            text-align: center;
+        }
+
+        .closing p {
+            max-width: 760px;
+            margin: 0 auto 26px;
+            color: var(--muted);
+            font-size: 20px;
+            line-height: 1.9;
+        }
+
+        .footer {
+            padding-top: 28px;
+            color: var(--soft);
+            font-size: 13px;
+            text-align: center;
+        }
+
+        @media (max-width: 820px) {
+            .page {
+                width: min(100% - 28px, 680px);
+                padding-top: 18px;
+            }
+
+            .nav {
+                padding-bottom: 20px;
+            }
+
+            .hero {
+                min-height: auto;
+                grid-template-columns: 1fr;
+                gap: 32px;
+                padding: 32px 0 44px;
+            }
+
+            h1 {
+                font-size: clamp(42px, 14vw, 66px);
+            }
+
+            .phone {
+                width: min(300px, 88vw);
+            }
+
+            .signature {
+                left: 18px;
+                right: 18px;
+                bottom: 24px;
+                width: auto;
+            }
+
+            .section {
+                grid-template-columns: 1fr;
+                gap: 24px;
+                padding: 42px 0;
+            }
+
+            .grid,
+            .account {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main class="page">
+        <nav class="nav" aria-label="页面信息">
+            <div class="brand">
+                <span class="mark">m</span>
+                <span>m edc</span>
+            </div>
+            <span>Private TestFlight Invitation</span>
+        </nav>
+
+        <section class="hero">
+            <div>
+                <p class="eyebrow">For 大吉</p>
+                <h1>想请你先摸一下这个手机里的推牌。</h1>
+                <p class="lead">
+                    大吉老师你好，我做了一个 iPhone 上的 EDC 指尖玩具 m edc。它想解决的不是收藏问题，而是手边只有手机时，仍然能有一点推、滑、段落、声响和震动的解压感。
+                </p>
+                <div class="actions">
+                    <a class="button primary" href="https://testflight.apple.com/join/gEXHUBNT">打开 TestFlight</a>
+                    <a class="button secondary" href="#install">查看安装说明</a>
+                </div>
+            </div>
+
+            <figure class="phone" aria-label="m edc 启动视觉">
+                <img src="daji/assets/m-edc-launch.png" alt="m edc Haptic Playground 启动页">
+                <figcaption class="signature">
+                    <strong>App Store 已审核通过</strong>
+                    <span>中国大陆区还在备案流程中，所以先通过 TestFlight 单独邀请体验。</span>
+                </figcaption>
+            </figure>
+        </section>
+
+        <section class="section">
+            <div>
+                <h2>这不是公开视频招募。</h2>
+            </div>
+            <div>
+                <p>
+                    这次是想先邀请你一个人试试。EDC 玩具很吃真实手感和经验判断，尤其是声音、段落、阻尼想象和“有没有玩具味”这些东西，普通用户很难说清楚。
+                </p>
+                <p>
+                    m edc 现在已经能玩：有几种滑动方式、几套触感序列和不同视觉主题。它更像一个随身备用的小东西，不是替代金属推牌，而是把“没带玩具也能摸两下”的场景补上。
+                </p>
+                <div class="grid">
+                    <div class="tile">
+                        <b>滑动方式</b>
+                        <span>直推、横滑、旋钮、网格、边缘弧、拇指弧。</span>
+                    </div>
+                    <div class="tile">
+                        <b>触感方向</b>
+                        <span>机械段落、棘轮节奏、重击、轻量精密等。</span>
+                    </div>
+                    <div class="tile">
+                        <b>体验重点</b>
+                        <span>手指划过时，声音和震动能不能合在一起。</span>
+                    </div>
+                    <div class="tile">
+                        <b>当前状态</b>
+                        <span>App Store 审核已过，大陆备案还在进行中。</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="install">
+            <div>
+                <h2>TestFlight 安装方式</h2>
+            </div>
+            <div>
+                <ol class="steps">
+                    <li>在 iPhone 上打开 App Store，搜索并安装 Apple 官方的 TestFlight。</li>
+                    <li>用 Safari 打开测试链接：<a href="https://testflight.apple.com/join/gEXHUBNT">https://testflight.apple.com/join/gEXHUBNT</a></li>
+                    <li>跳转到 TestFlight 后，点击接受，然后点击安装。</li>
+                    <li>安装完成后，回到桌面打开 m edc。</li>
+                </ol>
+                <div class="note">
+                    如果链接没有自动跳转，可以先安装 TestFlight，再把测试链接复制到 Safari 里打开。
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div>
+                <h2>沙盒账号</h2>
+            </div>
+            <div>
+                <p>
+                    多数情况下，TestFlight 安装只需要你自己的 Apple ID。如果 App 内测试流程提示需要沙盒账号，可以用下面这个。
+                </p>
+                <div class="account">
+                    <div>
+                        <span>账号</span>
+                        <code>daji6666@gmail.com</code>
+                    </div>
+                    <div>
+                        <span>密码</span>
+                        <code>Abcd.1234.</code>
+                    </div>
+                </div>
+                <div class="note">
+                    沙盒账号只用于测试环境，不会产生真实扣费，也不需要替换你手机日常使用的 Apple ID。
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div>
+                <h2>如果提示开发者模式</h2>
+            </div>
+            <div>
+                <p>
+                    TestFlight 安装的 App 一般不需要手动打开开发者模式。如果 iPhone 系统真的弹出相关提示，可以这样处理：
+                </p>
+                <ol class="steps">
+                    <li>打开设置，进入隐私与安全性。</li>
+                    <li>滑到页面底部，找到开发者模式。</li>
+                    <li>打开开关，按照系统提示重启手机。</li>
+                    <li>重启后再次确认开启，然后重新打开 m edc。</li>
+                </ol>
+                <div class="note">
+                    如果隐私与安全性里没有开发者模式，先不用管。很多设备用 TestFlight 正常安装时不会出现这一步。
+                </div>
+            </div>
+        </section>
+
+        <section class="closing">
+            <p>
+                这东西还很小，但我希望它能有一点 EDC 圈子真正认的质感：不是堆功能，而是划过去那一下，声音、震动和节奏能对上。
+            </p>
+            <a class="button primary" href="https://testflight.apple.com/join/gEXHUBNT">开始体验 m edc</a>
+        </section>
+
+        <footer class="footer">
+            <p>© 2026 Jack Jiang. m edc private TestFlight invitation.</p>
+        </footer>
+    </main>
+</body>
+</html>
